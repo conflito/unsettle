@@ -1,6 +1,10 @@
 # ----------------------------------------------------------------------- Custom
 
-# TODO
+# Ignore everything under 'tools/', except the 'get-tools.sh' script and the
+# README.md file
+tools/*
+!tools/README.md
+!tools/get-tools.sh
 
 # ---------------------------------------------------------------------- Windows
 
