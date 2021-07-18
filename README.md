@@ -352,33 +352,55 @@ public class LengthFieldBasedFrameDecoder_ESTest extends LengthFieldBasedFrameDe
 }
 ```
 
-To verify whether the generated test case does indeed reveal the conflict
-executed the following procedure
-
-1. Compile the generated test on the merge version
+To verify whether the generated test case does indeed reveal the conflict, in
+this particular example an emergent behavior (i.e., when the generatd test
+compiles and passes in the merge version, and either fails on both variants or
+on a least one version) executed the following procedure
 
 ```bash
 evosuite_jar=$(pwd)/tools/evosuite.jar
-
-(cd evosuite-tests; javac -cp $merge_classpath:$evosuite_jar org/jboss/netty/handler/codec/frame/LengthFieldBasedFrameDecoder_ESTest.java)
 ```
 
-2. Run the generated test on the merge version (which should TODO fail? pass?)
+1. Compile and run the generated test on the merge version (which should compile
+and pass)
 
 ```bash
+(cd evosuite-tests; javac -cp $merge_classpath:$evosuite_jar org/jboss/netty/handler/codec/frame/LengthFieldBasedFrameDecoder_ESTest.java)
 (cd evosuite-tests; java -cp .:$merge_classpath:$evosuite_jar org.junit.runner.JUnitCore org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder_ESTest)
 ```
 
-3. Run the generated test on the variant 1 version (which should TODO fail? pass?)
-TODO does one need to recompile it under variant 1 version?
+2. Compile and run the generated test on the variant 1 version (which should fail
+to compile on variant 1)
 
 ```bash
+(cd evosuite-tests; javac -cp $variant_1_classpath:$evosuite_jar org/jboss/netty/handler/codec/frame/LengthFieldBasedFrameDecoder_ESTest.java)
 (cd evosuite-tests; java -cp .:$variant_1_classpath:$evosuite_jar org.junit.runner.JUnitCore org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder_ESTest)
 ```
 
-4. Run the generated test on the variant 2 version (which should TODO fail? pass?)
-TODO does one need to recompile it under variant 2 version?
+```
+org/jboss/netty/handler/codec/frame/LengthFieldBasedFrameDecoder_ESTest.java:40: error: cannot find symbol
+      LengthFieldBasedFrameDecoder lengthFieldBasedFrameDecoder1 = lengthFieldBasedFrameDecoder0.setFailImmediatelyOnTooLongFrame(false);
+                                                                                                ^
+  symbol:   method setFailImmediatelyOnTooLongFrame(boolean)
+  location: variable lengthFieldBasedFrameDecoder0 of type LengthFieldBasedFrameDecoder
+```
+
+3. Compile and run the generated test on the variant 2 version (which should
+compile and fail, and therefore reveal the conflict)
 
 ```bash
+(cd evosuite-tests; javac -cp $variant_2_classpath:$evosuite_jar org/jboss/netty/handler/codec/frame/LengthFieldBasedFrameDecoder_ESTest.java)
 (cd evosuite-tests; java -cp .:$variant_2_classpath:$evosuite_jar org.junit.runner.JUnitCore org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder_ESTest)
+```
+
+```
+1) initializationError(org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder_ESTest)
+java.lang.Exception: Field nfr must implement MethodRule
+	at org.junit.runners.BlockJUnit4ClassRunner.validateRuleField(BlockJUnit4ClassRunner.java:188)
+	at org.junit.runners.BlockJUnit4ClassRunner.validateFields(BlockJUnit4ClassRunner.java:183)
+	at org.junit.runners.BlockJUnit4ClassRunner.collectInitializationErrors(BlockJUnit4ClassRunner.java:123)
+	at org.junit.runners.ParentRunner.validate(ParentRunner.java:269)
+	at org.junit.runners.ParentRunner.<init>(ParentRunner.java:66)
+	at org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:58)
+	at org.evosuite.runtime.EvoRunner.<init>(EvoRunner.java:77
 ```
