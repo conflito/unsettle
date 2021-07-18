@@ -158,8 +158,8 @@ echo "Setting up EvoSuite..."
 EVOSUITE_REPO_DIR="$SCRIPT_DIR/evosuite"
 EVOSUITE_JAR_FILE="$SCRIPT_DIR/evosuite.jar"
 EVOSUITE_GEN_JAR_FILE="$EVOSUITE_REPO_DIR/master/target/evosuite-master-1.0.7-SNAPSHOT.jar"
-EVOSUITE_BRANCH_NAME="trigger-semantic-conflict-with-latest-evosuiter-version"
-EVOSUITE_COMMIT_HASH="d271d7323b1fdb5f5a3bc792f43ec482963677da"
+EVOSUITE_BRANCH_NAME="trigger-semantic-conflict"
+EVOSUITE_COMMIT_HASH="cee583f23076b4bea032548c080c065ff54fbef1"
 
 # Remove any previous file or directory
 rm -rf "$EVOSUITE_REPO_DIR" "$EVOSUITE_JAR_FILE"
