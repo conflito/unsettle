@@ -9,7 +9,7 @@ UNSETTLE is mainly composed by two modules:
 
 1. [Changes-Matcher](https://github.com/conflito/changes-matcher) which is
 responsible for identifying whether any common cause of semantic conflicts
-(e.g., TODO) has occurred in a given merge commit.
+(e.g., parallel modifications to the same method) has occurred in a given merge commit.
 2. [Test Generator](https://github.com/conflito/evosuite/tree/trigger-semantic-conflict-with-latest-evosuiter-version)
 which is responsible for generating a conflict-revealing test case.
 
@@ -158,22 +158,22 @@ project example the configuration file (e.g., `netty-193acdb-configuration.txt`)
 can be configured as
 
 ```
-# (TODO relative? absolute?) Path to the source directory of the base version
+# Relative or absolute path to the source directory of the base version
 base.src.dir=base/src/main/java
 
-# (TODO relative? absolute?) Path to the source directory of the first variant version
+# Relative or absolute path to the source directory of the first variant version
 var1.src.dir=variant-1/src/main/java
 
-# (TODO relative? absolute?) Path to the source directory of the second variant version
+# Relative or absolute path to the source directory of the second variant version
 var2.src.dir=variant-2/src/main/java
 
-# (TODO relative? absolute?) Classpath the first variant version
+# Relative or absolute classpath of the first variant version
 var1.cp.dir=variant-1/target/classes:variant-1/.deps/easymockclassextension-2.5.2.jar:variant-1/.deps/commons-logging-1.1.1.jar:variant-1/.deps/org.osgi.compendium-1.4.0.jar:variant-1/.deps/junit-4.10.jar:variant-1/.deps/slf4j-api-1.6.1.jar:variant-1/.deps/cglib-nodep-2.2.jar:variant-1/.deps/jmock-2.5.1.jar:variant-1/.deps/objenesis-1.2.jar:variant-1/.deps/protobuf-java-2.3.0.jar:variant-1/.deps/log4j-1.2.16.jar:variant-1/.deps/org.osgi.core-1.4.0.jar:variant-1/.deps/servlet-api-2.5.jar:variant-1/.deps/jboss-logging-spi-2.1.2.GA.jar:variant-1/.deps/hamcrest-library-1.1.jar:variant-1/.deps/slf4j-simple-1.6.1.jar:variant-1/.deps/hamcrest-core-1.1.jar:variant-1/.deps/easymock-2.5.2.jar:variant-1/.deps/jmock-junit4-2.5.1.jar:variant-1/.deps/rxtx-2.1.7.jar:variant-1/.deps/junit-dep-4.4.jar:
 
-# (TODO relative? absolute?) Classpath the second variant version
+# Relative or absolute classpath of the second variant version
 var2.cp.dir=variant-2/target/classes:variant-2/.deps/easymockclassextension-2.5.2.jar:variant-2/.deps/commons-logging-1.1.1.jar:variant-2/.deps/org.osgi.compendium-1.4.0.jar:variant-2/.deps/slf4j-api-1.6.1.jar:variant-2/.deps/cglib-nodep-2.2.jar:variant-2/.deps/jmock-2.5.1.jar:variant-2/.deps/objenesis-1.2.jar:variant-2/.deps/protobuf-java-2.3.0.jar:variant-2/.deps/log4j-1.2.16.jar:variant-2/.deps/org.osgi.core-1.4.0.jar:variant-2/.deps/servlet-api-2.5.jar:variant-2/.deps/jboss-logging-spi-2.1.2.GA.jar:variant-2/.deps/hamcrest-library-1.1.jar:variant-2/.deps/junit-4.8.2.jar:variant-2/.deps/slf4j-simple-1.6.1.jar:variant-2/.deps/hamcrest-core-1.1.jar:variant-2/.deps/easymock-2.5.2.jar:variant-2/.deps/jmock-junit4-2.5.1.jar:variant-2/.deps/rxtx-2.1.7.jar:variant-2/.deps/junit-dep-4.4.jar:
 
-# (TODO relative? absolute?) Classpath the merge version
+# Relative or absolute classpath of the merge version
 merge.cp.dir=merge/target/classes:merge/.deps/easymockclassextension-2.5.2.jar:merge/.deps/commons-logging-1.1.1.jar:merge/.deps/org.osgi.compendium-1.4.0.jar:merge/.deps/junit-4.10.jar:merge/.deps/slf4j-api-1.6.1.jar:merge/.deps/cglib-nodep-2.2.jar:merge/.deps/jmock-2.5.1.jar:merge/.deps/objenesis-1.2.jar:merge/.deps/protobuf-java-2.3.0.jar:merge/.deps/log4j-1.2.16.jar:merge/.deps/org.osgi.core-1.4.0.jar:merge/.deps/servlet-api-2.5.jar:merge/.deps/jboss-logging-spi-2.1.2.GA.jar:merge/.deps/hamcrest-library-1.1.jar:merge/.deps/slf4j-simple-1.6.1.jar:merge/.deps/hamcrest-core-1.1.jar:merge/.deps/easymock-2.5.2.jar:merge/.deps/jmock-junit4-2.5.1.jar:merge/.deps/rxtx-2.1.7.jar:merge/.deps/junit-dep-4.4.jar:
 ```
 
@@ -190,10 +190,10 @@ java -jar tools/changes-matcher.jar \
 
 where
 
-- `--base` are the (TODO relative? absolute?) paths to the base version of the files modified in the merge version, use `;` to define more than one path
-- `--variant1` are the (TODO relative? absolute?) paths to the first variant version of the files modified in the merge version, use `;` to define more than one path
-- `--variant2` are the (TODO relative? absolute?) paths to the second version of the files modified in the merge version, use `;` to define more than one path
-- `--config` is the (TODO relative? absolute?) path to the configuration file
+- `--base` are the relative or absolute paths to the base version of the files modified in the merge version, use `;` to define more than one path
+- `--variant1` are the relative or absolute  paths to the first variant version of the files modified in the merge version, use `;` to define more than one path
+- `--variant2` are the relative or absolute  paths to the second version of the files modified in the merge version, use `;` to define more than one path
+- `--config` is the relative or absolute path to the configuration file
 
 Upon a successful execution, this command writes to the stdout the (variable, value)
 pairings and the testing goals (target class and methods to cover) for the test
@@ -201,10 +201,7 @@ generation step.
 
 Note: By default, [Changes-Matcher](https://github.com/conflito/changes-matcher)
 attempts to match any of the known patterns.  However, the `--conflict_name <pattern name>`
-option could be used to search for a particular change pattern.  The pattern
-available are:
-- TODO 1 which matches X
-- TODO 2 which matches Y
+option could be used to search for a particular change pattern. You can use the ``--list_patterns`` option to list the accepted names.
 
 For the running example, one could run the command above as
 
@@ -214,41 +211,69 @@ java -jar tools/changes-matcher.jar \
   --variant1 "$variant_1_modified_files" \
   --variant2 "$variant_2_modified_files" \
   --config netty-193acdb-configuration.txt \
-  --match_only > netty-193acdb-matches.txt
+  --match_only \
+  --output_file netty-193acdb-matches.txt
 ```
 
 which returns
 
 ```
 [
-  [
-    (0, org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder),
-    (1, decode(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.Channel, org.jboss.netty.buffer.ChannelBuffer))
-  ],
-  [
-    (0, org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder),
-    (1, org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder),
-    (2, decode(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.Channel, org.jboss.netty.buffer.ChannelBuffer)),
-    (3, failIfNecessary(org.jboss.netty.channel.ChannelHandlerContext))
-  ]
-]
-
-[
-  (
-    org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder, [
-      org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder.decode(Lorg/jboss/netty/channel/ChannelHandlerContext;Lorg/jboss/netty/channel/Channel;Lorg/jboss/netty/buffer/ChannelBuffer;)Ljava/lang/Object;
-    ]
-  ),
-  (
-    org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder, [
-      org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder.decode(Lorg/jboss/netty/channel/ChannelHandlerContext;Lorg/jboss/netty/channel/Channel;Lorg/jboss/netty/buffer/ChannelBuffer;)Ljava/lang/Object;,
-      org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder.failIfNecessary(Lorg/jboss/netty/channel/ChannelHandlerContext;)V
-    ]
-  )
+  {
+    "conflictName" : "Parallel Changes",
+    "variableAssignments" : [
+      {
+        "variable" : 0,
+        "value" : "org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder"
+      },
+      {
+        "variable" : 1,
+        "value" : "decode(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.Channel, org.jboss.netty.buffer.ChannelBuffer)"
+      }
+    ],
+    "testingGoal" : {
+      "targetClass" : "org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder",
+      "coverMethods" : [
+        "org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder.decode(Lorg/jboss/netty/channel/ChannelHandlerContext;Lorg/jboss/netty/channel/Channel;Lorg/jboss/netty/buffer/ChannelBuffer;)Ljava/lang/Object;"
+      ],
+      "coverMethodsLine" : "org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder.decode(Lorg/jboss/netty/channel/ChannelHandlerContext;Lorg/jboss/netty/channel/Channel;Lorg/jboss/netty/buffer/ChannelBuffer;)Ljava/lang/Object;"
+    }
+  },
+  {
+    "conflictName" : "Change Method 3",
+    "variableAssignments" : [
+      {
+        "variable" : 0,
+        "value" : "org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder"
+      },
+      {
+        "variable" : 1,
+        "value": "org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder"
+      },
+      {
+        "variable" : 2,
+        "value": "decode(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.Channel, org.jboss.netty.buffer.ChannelBuffer)"
+      },
+      {
+        "variable" : 3,
+        "value" : "failIfNecessary(org.jboss.netty.channel.ChannelHandlerContext)"
+      }
+    ],
+    "testingGoal" : {
+      "targetClass" : "org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder",
+      "coverMethods" : [
+        "org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder.decode(Lorg/jboss/netty/channel/ChannelHandlerContext;Lorg/jboss/netty/channel/Channel;Lorg/jboss/netty/buffer/ChannelBuffer;)Ljava/lang/Object;",
+        "org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder.failIfNecessary(Lorg/jboss/netty/channel/ChannelHandlerContext;)V"
+      ],
+      "coverMethodsLine" : "org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder.decode(Lorg/jboss/netty/channel/ChannelHandlerContext;Lorg/jboss/netty/channel/Channel;Lorg/jboss/netty/buffer/ChannelBuffer;)Ljava/lang/Object;:org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder.failIfNecessary(Lorg/jboss/netty/channel/ChannelHandlerContext;)V"
+    }
+  }
 ]
 ```
 
-TODO: how does one parse this output?
+Each JSON in the returned list tells us which pattern was matched, which assignment of values to each each variable matched the pattern, what class to target during test generation, and which methods to cover.
+
+The ``targetClass`` field of every ``testingGoal`` is the class to target. Each value in ``coverMethods`` is a method we want the generated test to cover. For simplicity, the ``coverMethodsLine`` represents the combined string of these methods that we use in the ``-Dcover_methods`` option for the test generator.
 
 ### Semantic Conflict Revealing
 
@@ -280,7 +305,7 @@ The `-criterion`, `-Dtest_factory`, and `assertion_strategy` remain unchanged
 between executions.  An additional property `-Ddistance_threshold=]0..1]` is
 also available to set the threshold used by the
 [test generator](https://github.com/conflito/evosuite/tree/trigger-semantic-conflict-with-latest-evosuiter-version)
-to consider objects sufficiently different.
+to consider objects sufficiently different. You can combine the options ``-Dregressioncp`` and ``-Dsecond_regressioncp`` by using instead the ``-Dregressioncps`` option, separating the variant's classpaths with "|".
 
 For the running example, one could run the command above as
 
@@ -288,7 +313,7 @@ For the running example, one could run the command above as
 java -jar tools/evosuite.jar \
   -projectCP "$merge_classpath" \
   -class "org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder" \
-  -Dcover_methods=TODO \
+  -Dcover_methods="org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder.decode(Lorg/jboss/netty/channel/ChannelHandlerContext;Lorg/jboss/netty/channel/Channel;Lorg/jboss/netty/buffer/ChannelBuffer;)Ljava/lang/Object;" \
   -Dregressioncp="$variant_1_classpath" \
   -Dsecond_regressioncp="$variant_2_classpath" \
   -criterion methodcall \
