@@ -305,7 +305,7 @@ The `-criterion`, `-Dtest_factory`, and `assertion_strategy` remain unchanged
 between executions.  An additional property `-Ddistance_threshold=]0..1]` is
 also available to set the threshold used by the
 [test generator](https://github.com/conflito/evosuite/tree/trigger-semantic-conflict-with-latest-evosuiter-version)
-to consider objects sufficiently different. You can combine the options ``-Dregressioncp`` and ``-Dsecond_regressioncp`` by using instead the ``-Dregressioncps`` option, separating the variant's classpaths with "|".
+to consider objects sufficiently different.
 
 For the running example, one could run the command above as
 
