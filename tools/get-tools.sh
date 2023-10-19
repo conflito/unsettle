@@ -5,7 +5,7 @@
 #   - [JDK 8](https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/tag/jdk8u292-b10)
 #   - [Apache Maven](https://maven.apache.org)
 #   - [Changes-Matcher](https://github.com/conflito/changes-matcher)
-#   - [EvoSuite](https://github.com/conflito/evosuite/tree/trigger-semantic-conflict-with-latest-evosuiter-version)
+#   - [EvoSuite](https://github.com/conflito/evosuite/tree/trigger-semantic-conflict)
 #
 # Usage:
 # get_tools.sh
@@ -84,7 +84,9 @@ fi
 
 # Runtime check whether JDK has been properly installed, e.g., by checking
 # whether 'javac' command is available
-(export JAVA_HOME="$JDK_HOME"; export PATH="$JAVA_HOME/bin:$PATH"; javac -version > /dev/null 2>&1) || die "[ERROR] Could not find 'java/javac' executable."
+(export JAVA_HOME="$JDK_HOME"; \
+export PATH="$JAVA_HOME/bin:$PATH"; \
+javac -version > /dev/null 2>&1) || die "[ERROR] Could not find 'java/javac' executable."
 
 #
 # Download Apache Maven
@@ -115,7 +117,9 @@ ln -s "$MVN_INSTALL_DIR" "$SCRIPT_DIR/apache-maven" || die "[ERROR] Failed to cr
 
 # Runtime check whether Apache Maven has been properly installed, e.g., by checking
 # whether 'mvn' command is available
-(export JAVA_HOME="$JDK_HOME"; export PATH="$JAVA_HOME/bin:$SCRIPT_DIR/apache-maven/bin:$PATH"; mvn -version > /dev/null 2>&1) || die "[ERROR] Could not find 'mvn' executable."
+(export JAVA_HOME="$JDK_HOME"; \
+export PATH="$JAVA_HOME/bin:$SCRIPT_DIR/apache-maven/bin:$PATH"; \
+mvn -version > /dev/null 2>&1) || die "[ERROR] Could not find 'mvn' executable."
 
 # Set up MVN_M2_HOME
 MVN_M2_HOME="$SCRIPT_DIR/.m2"
@@ -132,7 +136,7 @@ CHANGES_MATCHER_REPO_DIR="$SCRIPT_DIR/changes-matcher"
 CHANGES_MATCHER_JAR_FILE="$SCRIPT_DIR/changes-matcher.jar"
 CHANGES_MATCHER_GEN_JAR_FILE="$CHANGES_MATCHER_REPO_DIR/target/org.conflito.changes-matcher-0.0.1-SNAPSHOT-jar-with-dependencies.jar"
 CHANGES_MATCHER_BRANCH_NAME="master"
-CHANGES_MATCHER_COMMIT_HASH="eae866508344d909bb13fae0a2eb14f2679c4415"
+CHANGES_MATCHER_COMMIT_HASH="4354fa9513c4fbc0a2f8ae06959bd5f7953edb89"
 
 # Remove any previous file or directory
 rm -rf "$CHANGES_MATCHER_REPO_DIR" "$CHANGES_MATCHER_JAR_FILE"
@@ -142,7 +146,12 @@ git clone https://github.com/conflito/changes-matcher.git "$CHANGES_MATCHER_REPO
 [ -d "$CHANGES_MATCHER_REPO_DIR" ] || die "[ERROR] '$CHANGES_MATCHER_REPO_DIR' does not exist!"
 
 # Build it
-(export JAVA_HOME="$JDK_HOME"; export PATH="$JAVA_HOME/bin:$PATH"; cd "$CHANGES_MATCHER_REPO_DIR"; git checkout "$CHANGES_MATCHER_BRANCH_NAME"; git checkout "$CHANGES_MATCHER_COMMIT_HASH"; mvn clean package -Dmaven.repo.local="$MVN_M2_HOME" -DskipTests=true) || die "[ERROR] Failed to build 'Changes-Matcher'!"
+(export JAVA_HOME="$JDK_HOME"; \
+export PATH="$JAVA_HOME/bin:$PATH"; \
+cd "$CHANGES_MATCHER_REPO_DIR"; \
+git checkout "$CHANGES_MATCHER_BRANCH_NAME"; \
+git checkout "$CHANGES_MATCHER_COMMIT_HASH"; \
+mvn clean package -Dmaven.repo.local="$MVN_M2_HOME" -DskipTests=true) || die "[ERROR] Failed to build 'Changes-Matcher'!"
 [ -s "$CHANGES_MATCHER_GEN_JAR_FILE" ] || die "[ERROR] '$CHANGES_MATCHER_GEN_JAR_FILE' does not exist or it is empty!"
 
 # Create a symbolic link to Changes-Matcher's distribution package
@@ -169,7 +178,12 @@ git clone https://github.com/conflito/evosuite.git "$EVOSUITE_REPO_DIR" || die "
 [ -d "$EVOSUITE_REPO_DIR" ] || die "[ERROR] '$EVOSUITE_REPO_DIR' does not exist!"
 
 # Build it
-(export JAVA_HOME="$JDK_HOME"; export PATH="$JAVA_HOME/bin:$SCRIPT_DIR/apache-maven/bin:$PATH"; cd "$EVOSUITE_REPO_DIR"; git checkout "$EVOSUITE_BRANCH_NAME"; git checkout "$EVOSUITE_COMMIT_HASH"; mvn clean package -Dmaven.repo.local="$MVN_M2_HOME" -DskipTests=true) || die "[ERROR] Failed to build 'EvoSuite'!"
+(export JAVA_HOME="$JDK_HOME"; \
+export PATH="$JAVA_HOME/bin:$SCRIPT_DIR/apache-maven/bin:$PATH"; \
+cd "$EVOSUITE_REPO_DIR"; \
+git checkout "$EVOSUITE_BRANCH_NAME"; \
+git checkout "$EVOSUITE_COMMIT_HASH"; \
+mvn clean package -Dmaven.repo.local="$MVN_M2_HOME" -DskipTests=true) || die "[ERROR] Failed to build 'EvoSuite'!"
 [ -s "$EVOSUITE_GEN_JAR_FILE" ] || die "[ERROR] '$EVOSUITE_GEN_JAR_FILE' does not exist or it is empty!"
 
 # Create a symbolic link to EvoSuite's distribution package
