@@ -29,7 +29,10 @@ Once the conflict has been identified, the test generation phase takes place.
 The [test generator](https://github.com/conflito/evosuite/tree/trigger-semantic-conflict),
 built on top of the [EvoSuite](https://github.com/EvoSuite/evosuite) tool, is
 guided by the information about the changes between the base version and its
-variants to find a test that is able to trigger the conflict.
+variants to find a test that is able to trigger the conflict.  (One can find in
+[here](https://github.com/conflito/evosuite/compare/4f0aa143210ce4e71ae2b3543231b4707d461476...cee583f23076b4bea032548c080c065ff54fbef1)
+the exact set of changes we made to the [EvoSuite](https://github.com/EvoSuite/evosuite)
+tool to support the generation of semantic conflict-revealing test.)
 
 ## Requirements
 
