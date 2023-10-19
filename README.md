@@ -34,6 +34,19 @@ variants to find a test that is able to trigger the conflict.  (One can find in
 the exact set of changes we made to the [EvoSuite](https://github.com/EvoSuite/evosuite)
 tool to support the generation of semantic conflict-revealing test.)
 
+If you use UNSETTLE in your research, please cite the masters thesis that fully
+describes and evaluates UNSETTLE's performance and effectiveness:
+
+```bibtex
+@mastersthesis{UNSETTLE2021,
+  author  = {Nuno Castanho},
+  title   = {{Semantic Conflicts in Version Control Systems}},
+  school  = {Universidade de Lisboa, Faculdade de Ciências},
+  year    = {2021},
+  url     = {http://hdl.handle.net/10451/50658}
+}
+```
+
 ## Requirements
 
 - Java 1.8
