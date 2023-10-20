@@ -60,7 +60,7 @@ and the [Test Generator](https://github.com/conflito/evosuite/tree/trigger-seman
 in the following example, export the following environment variables
 
 ```bash
-export CHANGES_MATCHER_JAR="$(pwd)/target/changes-matcher.jar"
+export CHANGES_MATCHER_JAR="$(pwd)/tools/changes-matcher.jar"
 export TEST_GENERATOR_JAR="$(pwd)/tools/evosuite.jar"
 ```
 
