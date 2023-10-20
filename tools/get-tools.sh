@@ -147,7 +147,7 @@ git clone https://github.com/conflito/changes-matcher.git "$CHANGES_MATCHER_REPO
 
 # Build it
 (export JAVA_HOME="$JDK_HOME"; \
-export PATH="$JAVA_HOME/bin:$PATH"; \
+export PATH="$JAVA_HOME/bin:$SCRIPT_DIR/apache-maven/bin:$PATH"; \
 cd "$CHANGES_MATCHER_REPO_DIR"; \
 git checkout "$CHANGES_MATCHER_BRANCH_NAME"; \
 git checkout "$CHANGES_MATCHER_COMMIT_HASH"; \
