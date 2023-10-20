@@ -95,9 +95,9 @@ javac -version > /dev/null 2>&1) || die "[ERROR] Could not find 'java/javac' exe
 echo ""
 echo "Setting up Apache Maven..."
 
-MVN_VERSION="3.8.1"
+MVN_VERSION="3.9.5"
 MVN_FILE="apache-maven-$MVN_VERSION-bin.tar.gz"
-MVN_URL="https://mirrors.up.pt/pub/apache/maven/maven-3/$MVN_VERSION/binaries/$MVN_FILE"
+MVN_URL="https://dlcdn.apache.org/maven/maven-3/$MVN_VERSION/binaries/$MVN_FILE"
 MVN_INSTALL_DIR="$SCRIPT_DIR/apache-maven-$MVN_VERSION"
 
 # Remove any previous file or directory
