@@ -52,7 +52,7 @@ describes and evaluates UNSETTLE's performance and effectiveness:
 - Java 1.8
 - [Apache Maven](https://maven.apache.org) 3.6.1 or later.
 
-For convenience, the [`tools/get-tools.sh`](`tools/get-tools.sh`) script
+For convenience, the [`tools/get-tools.sh`](tools/get-tools.sh) script
 automatically downloads and builds all requirements and UNSETTLE's modules.
 
 To ease the usage of the [Changes-Matcher](https://github.com/conflito/changes-matcher) tool
