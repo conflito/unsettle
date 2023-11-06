@@ -53,7 +53,18 @@ describes and evaluates UNSETTLE's performance and effectiveness:
 - [Apache Maven](https://maven.apache.org) 3.6.1 or later.
 
 For convenience, the [`tools/get-tools.sh`](tools/get-tools.sh) script
-automatically downloads and builds all requirements and UNSETTLE's modules.
+automatically downloads and builds all requirements and UNSETTLE's modules.  Once
+it has finished, manually export the following environment variables to ease the
+usage of Java and Maven.
+
+```bash
+# On a Unix machine
+export JAVA_HOME="$(pwd)/tools/jdk-8"
+# or, on a MacOS machine
+export JAVA_HOME="$(pwd)/tools/jdk-8/Contents/Home"
+
+export PATH="$JAVA_HOME/bin:$(pwd)/tools/apache-maven/bin:$PATH"
+```
 
 To ease the usage of the [Changes-Matcher](https://github.com/conflito/changes-matcher) tool
 and the [Test Generator](https://github.com/conflito/evosuite/tree/trigger-semantic-conflict)
